@@ -8,7 +8,7 @@ router.post("/signup", signUp, async (req, res) => {
 });
 
 router.post("/signin", basicAuth, async (req, res) => {
-  res.status(200).send("Welcome to the app");
+  res.status(200).send("Welcome to the app!!!");
 });
 
 module.exports = router;

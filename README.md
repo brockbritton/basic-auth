@@ -1,13 +1,15 @@
 # Basic Auth
 
-Project description goes here.
+This is a basic authentication server that allows users to sign up and sign in.
 
 ## Getting Started
 
 ### Requirements
 
-For development, you will only need [Node](http://nodejs.org/) installed in your environment.
-Please use the appropriate [Editorconfig](http://editorconfig.org/) plugin for your Editor (not mandatory).
+For development, you will only need [Node](http://nodejs.org/) installed in your
+environment.
+Please use the appropriate [Editorconfig](http://editorconfig.org/) plugin for your
+Editor (not mandatory).
 
 ### Install
 
@@ -17,7 +19,14 @@ Please use the appropriate [Editorconfig](http://editorconfig.org/) plugin for y
 
 ### Configure app
 
-Any environment configuration steps.
+Create a `.env` file then edit it with your settings. You will need:
+
+``` text
+
+PORT=3000
+DATABASE_URL=sqlite:memory:
+
+```
 
 ### Start & watch
 
@@ -25,44 +34,6 @@ Any environment configuration steps.
     npm start
 
 ## Architecture
-
-Describe how the project is structured.
-
-### Languages & tools
-
-Explain what tools are used.
-
-## Change Log
-
-List versioned releases.
-
-## Collaborators
-
-List collaborators here.
-
-## Phase 1 Requirements
-
-Today, we begin the first of a 3-Phase build of an authentication system, written in Express. The following core requirements detail the functionality for this phase of the project.
-
-### As a user, I want to create a new account so that I may later login
-
-- Using an HTTP REST client or a web form:
-  - Make a **POST** request to the`/signup` route with `username` and `password`.
-  - Your server should support both JSON and FORM data as input.
-  - On a successful account creation, return a **201** status with the user object in the body.
-  - On any error, trigger your error handler with an appropriate error.
-
-### As a user, I want to login to my account so that I may access protected information
-
-- Using am HTTP REST client, or a web form:
-  - Make a **POST** request to the `/signin` route.
-  - Send a basic authentication header with a properly encoded username and password combination.
-  - On a successful account login, return a **200** status with the user object in the body.
-  - On any error, trigger your error handler with the message "Invalid Login".
-  
-### Application Structure (proposed)
-
-> NOTE: The majority of our work for this server will be done within the `src/auth` folder. The rest of the system should be generic express. Why? It's our intention to be able to "lift" the `auth` folder and "drop" it into any other server (such as our API server) and be able to use authorization to "protect" those CRUD routes. This makes our entire auth system very modular. Think of `index.js` and `server.js` as nothing more than the basics to get a server started, with 100% of the actual logic living within the `auth` module
 
 ```text
 ├── .github
@@ -76,7 +47,7 @@ Today, we begin the first of a 3-Phase build of an authentication system, writte
 │   ├── auth
 │   │   ├── middleware
 │   │   │   ├── basic.js
-│   │   ├── basic.test.js
+│   │   ├   |--basic.test.js
 │   │   ├── models
 │   │   │   ├── index.js
 │   │   │   └── users-model.js
@@ -93,59 +64,26 @@ Today, we begin the first of a 3-Phase build of an authentication system, writte
 └── README.md
 ```
 
-## Technical Requirements / Notes
+### Languages & tools
 
-> You have been supplied a "monolithic" express server in the `starter-code` folder which fulfills the above requirements. To complete the work for this phase, refactor the provided server using best practices, modularizing the code and providing tests, as follows:
+* JavaScript 
+* Node
+* Express
+* Supertest
+* Jest
+* Nodemon
+* pg
+* dotenv
+* sequelize
+* bcrypt
+* sqlite3
+* cors
+* base-64
 
-### Basic Server
+## Change Log
 
-- Extract the core server logic into 2 files:
-  - `index.js` (entry point)
-    - Connect to the database
-    - Require the 'server' and start it
-  - `server.js` service wiring
-    - Exports an express app/server and a start method
+0.0.1 2024-04-08 
 
-### Authentication Modules
+## Collaborators
 
-Keep your authentication related files in a folder called `/auth` so they are independent of the server itself.
-
-- Extract the authentication logic for `/signin` as middleware.
-  - Create a new node module.
-  - Interact with the headers and the users model.
-  - Add the user record (if valid) to the request object and call `next()`.
-  - Call `next()` with an error in the event of a bad login.
-- Extract the Sequelize Model into a separate module.
-  - Model the user data.
-  - Add a before-create hook in the model ... Before we save a record:
-    - Hash the plain text password given before you save a user to the database.
-  - Create a method in the schema to authenticate a user using the hashed password.
-- Create a module to house all of routes for the authentication system.
-  - Create a POST route for `/signup`
-    - Accepts either a JSON object or FORM Data with the keys "username" and "password".
-    - Creates a new user record in a Postgres database.
-    - Returns a 201 with the created user record.
-  - Create a POST route for `/signin`.
-    - Use your basic authentication middleware to perform the actual login task.
-    - `router.post('/signin', basicAuth, (req,res) => {});`
-    - When validated, send a JSON object as the response with the following properties:
-      - `user`: The users' database record
-
-### Testing
-
-1. You should manually test your routes using an HTTP REST client, either in the terminal or an HTTP REST client with a GUI.
-2. Additionally, you are required to write automated tests.  
-   - Leverage the testing knowledge you have gained in lecture and code review.  
-   - Leverage a chatbot. 
-   
-> You have permission to ask a chatbot to write tests for code blocks of your choice.  Practice engineering optimal prompts to engage AI.  Anytime you utilize AI, be sure and document the actual contribution made by AI along with the prompt you used to generate the response in your `README.md`.
-
-#### Testing requirements for this lab
-
-- POST to /signup to create a new user.
-- POST to /signin to login as a user (use basic auth).
-- Need tests for auth middleware and the routes.
-  - Does the middleware function (send it a basic header).
-  - Do the routes assert the requirements (signup/signin).
-- This is going to require more "end to end" testing than you've done in the past.
-  - To test signin, your tests actually need to create a user first, then try and login.  i.e. The signin test will rely on the success of the signup test.
+Brock Britton
