@@ -86,4 +86,4 @@ DATABASE_URL=sqlite:memory:
 
 ## Collaborators
 
-Brock Britton
+Isai Chaidez
