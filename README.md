@@ -47,7 +47,7 @@ DATABASE_URL=sqlite:memory:
 │   ├── auth
 │   │   ├── middleware
 │   │   │   ├── basic.js
-│   │   ├   |--basic.test.js
+│   │   │   ├──basic.test.js
 │   │   ├── models
 │   │   │   ├── index.js
 │   │   │   └── users-model.js
